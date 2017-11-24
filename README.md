@@ -2,7 +2,6 @@
 Analysis of US domestic flights data to extract insights in relation to flight delays. 
 
 Author: Laxmi Prajapat
-Last updated: 23/11/17
 
 Raw data files required:
 - data-flights_large.csv/data-flights_medium.csv (not on github)
