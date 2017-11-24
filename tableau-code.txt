@@ -1,0 +1,79 @@
+# Tableau code snippets used for dashboard
+@author: Laxmi Prajapat
+Last updated: 23/11/17
+
+# Route identifier field
+[Departure Airport] + '_' + [Arrival airport]
+
+# Route order
+# Create route order calculated field after unioning tables
+IF [Table Name] = 'data-flights-final_2.csv' THEN "1"
+ELSE "2"
+END
+
+# Route location
+IF [Table Name] = 'data-flights-final_2.csv' THEN [Departure Airport]
+ELSE [Arrival airport]
+END
+
+# Latitude
+IF [Table Name] = 'data-flights-final_2.csv' THEN [Departure Latitude]
+ELSE [Arrival Latitude]
+END
+
+# Longitude
+IF [Table Name] = 'data-flights-final_2.csv' THEN [Departure Longitude]
+ELSE [Arrival Longitude]
+END
+
+# Airport
+IF [Table Name] = 'data-flights-final_2.csv' THEN [Departure Airport Name]
+ELSE [Arrival Airport Name]
+END
+
+# State
+IF [Table Name] = 'data-flights-final_2.csv' THEN [Departure State Name]
+ELSE [Arrival State Name]
+END
+
+# Proportion of delayed flights
+(SUM([Overall Flight Delayed])/SUM([Number of Records]))
+
+# Display delay
+case [Select delay type]
+when "Overall" then [Overall Delay Time]
+when "Departure" then [Departure delay]
+when "Arrival" then [Arrival delay]
+END
+
+# Display view
+case [Select view]
+when "Route" then [Route]
+when "Departure State" then [Departure State Name]
+when "Departure Airport" then [Departure Airport Name]
+when "Arrival State" then [Arrival State Name]
+when "Arrival Airport" then [Arrival Airport Name]
+END
+
+# Season calculated field
+IF [Month] = 12 OR [Month] = 1 OR [Month] = 2 THEN "Winter"
+ELSEIF [Month] = 3 OR [Month] = 4 OR [Month] = 5 THEN "Spring"
+ELSEIF [Month] = 6 OR [Month] = 7 OR [Month] = 8 THEN "Summer"
+ELSE "Autumn"
+END
+
+# Rating class
+IF AVG([Overall Rating]) <= 3.5 THEN "Bad"
+ELSEIF AVG([Overall Rating]) > 3.5 AND AVG([Overall Rating]) <= 6.5 THEN "Neutral"
+ELSE "Good"
+END
+
+# Weather control
+case [Select weather type]
+when "Avg. temperature" then AVG([Mean Temp])
+when "Avg. wind speed" then AVG([Mean Wind Speed])
+when "Rain" then SUM([Rain])
+when "Snow" then SUM([Snow])
+when "Thunder" then SUM([Thunder])
+when "Tornado" then SUM([Tornado])
+END
